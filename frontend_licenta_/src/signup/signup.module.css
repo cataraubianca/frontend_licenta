@@ -1,0 +1,222 @@
+.Appauth {
+  text-align: center;
+  display: flex;
+  min-height: 100vh;
+
+  justify-content: center;
+  font-family: "Comic Sans MS", "Comic Sans", cursive; 
+  font-style: comic sans ms;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  margin-left: 200px;
+
+}
+
+.authformcontainerlogin, .authformcontainerregister, .loginform, .registerform, .recoverform {
+  display: flex;
+  flex-direction: column;
+  top: -40px
+}
+
+ .authformcontainerlogin{
+  width: 400px;
+  height: 500px;
+  position: relative;
+  left: -50px;
+
+  
+}  
+
+
+.authformcontainerregister{
+  width: 300px;
+  height: 750px;
+  position: relative;
+  left: -70px;
+
+}  
+
+
+.loginform {
+  position: relative;
+  top: -20px;
+}
+
+.registerform {
+  position: relative;
+  top: -20px;
+}
+
+.divlogin {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap :7rem;
+}
+
+.divregister {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap :7rem;
+}
+
+
+@media screen and (min-width: 600px) {
+  .authformcontainerlogin {
+    padding: 3rem;
+    border-radius: 10px;
+    margin: 2rem;
+  }
+
+  .authformcontainerregister {
+    padding: 3rem;
+    border-radius: 10px;
+    margin: 2rem;
+  }
+}
+
+label {
+  text-align: left;
+  padding: 0.25rem 0;
+  position: relative;
+}
+.tablee{
+  border-collapse: collapse;
+  max-width: 500px;
+}
+.inputlogin {
+  margin: 0.5rem 0;
+  padding: 1rem;
+  border: 2px solid rgb(0, 0, 0);
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+  height: 10px;
+  font-family: "Comic Sans MS", "Comic Sans", cursive; 
+  font-style: comic sans ms;
+}
+
+.inputregister {
+  margin: 0.5rem 0;
+  padding: 1rem;
+  border: 2px solid rgb(0, 0, 0);
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+  height: 10px;
+  font-family: "Comic Sans MS", "Comic Sans", cursive; 
+  font-style: comic sans ms;
+}
+
+
+button {
+  border: none;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px solid rgb(0, 0, 0);
+  cursor: pointer;
+  color: #000000;
+  text-decoration:bold;
+  font-family: "Comic Sans MS", "Comic Sans", cursive; 
+  font-style: comic sans ms;
+}
+
+
+.linkbtnlogin {
+  background: none;
+  color: rgb(0, 0, 0);
+  text-decoration: underline;
+  position: relative;
+  top: -2px;
+  border:none;
+  font-style: italic;
+} 
+
+.linkbtnregister {
+  background: none;
+  color: rgb(0, 0, 0);
+  text-decoration: underline;
+  position: relative;
+  top: 26px;
+  border:none;
+  font-style: italic;
+} 
+
+.linkbtnrecover {
+  background: none;
+  color: rgb(0, 0, 0);
+  text-decoration: underline;
+  position: relative;
+  top: -20px;
+  border:none;
+  font-style: italic;
+} 
+
+
+.loginbtn {
+  background-color: #1ab5fc;
+  position: relative;
+  top: 30px;
+  text-align: center;
+  font-size: 20px;
+  line-height: 10px;
+}
+
+.registerbtn {
+  background-color: #1ab5fc;
+  position: relative;
+  top: 60px;
+  text-align: center;
+  font-size: 20px;
+  line-height: 10px;
+  
+}
+
+.reading {
+  position: sticky;
+  top: 100px;
+}
+
+.title {
+  position: fixed;
+  top: 510px;
+  color: rgb(63, 58, 86);
+  font-size: 70px;
+  text-align: center;
+  margin-left: 130PX;;
+}
+
+.welcometext{
+  font-family: "Comic Sans MS", "Comic Sans", cursive; 
+  font-style: comic sans ms;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(48, 44, 67);
+}
+
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tablee{
+  min-width: 1000px;
+  margin-top: 30px;
+  margin-left: 300px;
+  background-color: wheat;
+  border-style:groove;
+  border-width: 3px;
+  border-color: rgb(0, 0, 0);
+}
+
+.columnn{
+  margin-right: 100px;
+}
+
+.error {
+  background-color: #c51244;
+  color: white;
+  border: 1px solid black; 
+}
