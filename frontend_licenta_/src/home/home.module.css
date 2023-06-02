@@ -1,0 +1,228 @@
+.container {  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 6fr 6fr 6fr 6fr ;
+  grid-auto-columns: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "search"
+    "featured"
+    "tools"
+    "advice"
+
+}
+
+.search { grid-area: search; }
+
+.featured { grid-area: featured;background-color: #efefe0; display: flex ; justify-content: center }
+
+.tools { grid-area: tools; background-color: #c2bb9b;}
+
+.advice { grid-area: advice; background-color: #efefe0; }
+
+
+  
+  .search { grid-area: search;
+        min-height: 600px;
+        background-image: url("https://aldf.org/wp-content/uploads/2018/05/dogfamily-iStock-629868524-16x9.jpg");
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        justify-content: center;
+    }
+  
+
+
+  .formbox {
+
+    margin-left: 250px;
+    background-color:#21474b;
+    min-height: 200px;
+    max-width: 1000px;
+    border-radius: 50px;
+    margin-bottom: 20px;
+  }
+  .searchtitle{
+    color: aliceblue;
+    margin-left: 250px;
+    margin-top: 100px;
+    font-size: 100px;
+  }
+  .searchsecondtitle{
+    color: aliceblue;
+    margin-left: 250px;
+    margin-top: 20px;
+   
+  }
+  .forminput{
+    margin-top: 50px;
+}
+  .searchbttn{
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 10px;
+  }
+  .formlabel{
+    margin-right: 20px;
+    margin-left: 20px;
+  }
+
+  .searchtitlee{
+    margin-left: 20px;
+    margin-top: -40px;
+  }
+
+.button27 {
+  appearance: none;
+  background-color: #000000;
+  border: 2px solid #1A1A1A;
+  border-radius: 15px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
+  min-height: 60px;
+  min-width: 0;
+  outline: none;
+  padding: 16px 24px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+    max-width: 100px;
+  will-change: transform;
+margin-left: 20px;
+}
+
+.button-27:disabled {
+  pointer-events: none;
+}
+
+.button-27:hover {
+  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+  transform: translateY(-2px);
+}
+
+.button-27:active {
+  box-shadow: none;
+  transform: translateY(0);
+}
+  button:focus{
+    background:rgb(170, 205, 233);
+}
+    
+.description { grid-area: description;
+  text-align: center;
+  background-color: wheat;
+  border-radius: 250px;
+  margin-top: 80px;
+  margin-right: 20px;
+  margin-bottom: 120px;
+}
+
+.image { 
+  grid-area: image;
+  margin-top: 80px; 
+}
+
+.descriptionContent{
+  text-align: center;
+  padding:30px
+}
+.descriptionTitle{
+  padding:50px
+}
+.adviceImage{
+  max-width: 200px;
+  max-height: 200px;
+
+  margin-left: 30px;
+}
+
+.featuredContent{
+  display: flex;
+  justify-content:center;
+  margin-top: 75px;
+}
+
+.check{
+  text-align: center;
+  margin-top: 50px;
+  font-family: "Lucida Console", "Courier New", monospace;
+}
+.dogandcat{
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 40px;
+}
+.catimage{
+  max-width: 300px;
+  max-height: 250px;
+}
+.dogimage{
+  max-width: 300px;
+  max-height: 300px;
+}
+.cat{
+  justify-content: stretch;
+  text-align: center;
+}
+.dog{
+  justify-content: stretch;
+  text-align: center;
+}
+.pdogandcat{
+  max-width: 600px;
+}
+.titledogandcat{
+  max-width: 600px;
+}
+
+.ladywithdogs{
+  display: flex;
+  justify-content: center;
+  max-width: 600px;
+  max-height: 2000px;
+  margin-top: 200px;
+  margin-left: 100px;
+}
+
+.advice{
+  display: flex;
+  justify-content:space-between;
+}
+
+.textladywithdogs{
+  margin-top: 30px;
+  max-width: 500px;
+  margin-right: 150px;
+  font-size: 22px;
+  text-align: left;
+}
+
+.bla{
+  margin-top: 100px;
+}
+
+.howitworksbttn {
+  font-size: 16px;
+  font-weight: 200;
+  letter-spacing: 1px;
+  padding: 13px 20px 13px;
+  outline: 0;
+  border: 1px solid black;
+  cursor: pointer;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0);
+  user-select: none;
+  -webkit-user-select: none;
+  background-color: rgba(71, 215, 55, 0.692);
+  touch-action: manipulation;
+  margin-top: 20px;
+}

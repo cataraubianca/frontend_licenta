@@ -1,0 +1,24 @@
+.findbutton{
+    position:absolute;
+    margin-top: 40px;
+    margin-left: 1370px;
+    z-index: 9;
+  }
+
+.advancedbutton{
+    margin-top: 25px;
+    margin-bottom: 25px;
+    margin-left: 110px;
+}
+
+.love{
+  max-width: 60px;
+  border-radius: 50px;
+  border-color: red;
+  margin-left: 15px;
+  text-align: center;
+}
+.love:active{
+  background-color: red;
+  
+}

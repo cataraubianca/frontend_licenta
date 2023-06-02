@@ -11,3 +11,24 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.products-row {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.products-row .col-lg-4 {
+  margin-bottom: 25px;
+}
+
+.products-row .card {
+  height: 100%;
+}
+
+.img-wrap {
+  height: 300px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
