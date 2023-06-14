@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { _get, _put } from '../utils/api.js';
 import petImage from '../images/peticon.jpg';
 import { States } from "./enum.ts";
-import { petCategory } from "./enum.ts";
+import { petCategory as myPetCategory } from "./enum.ts";
 import { CatBreed } from "./enum.ts";
 import { RabbitBreed } from "./enum.ts";
 import { DogBreed } from "./enum.ts";
@@ -13,9 +13,13 @@ import { BirdBreed } from "./enum.ts";
 import { HorseBreed } from "./enum.ts";
 import { Age } from "./enum.ts";
 import { storage } from "../firebase";
-
+import Footer from '../footer/footer.js';
+import styles from './editpet.module.css';
+import jwt from "jwt-decode";
+import { getToken } from "../utils/storage";
 const EditPet = () => {
   const navigate = useNavigate();
+  const history = useNavigate();
   const { productId } = useParams();
   const { pathname } = useLocation();
   const [pets, setPets] = useState([]);
@@ -34,6 +38,9 @@ const EditPet = () => {
   const [agee, setAgee] = useState()
   const [image, setImage] = useState()
   const [url, setURL] = useState()
+  const [isToken, setIsToken] = useState(null);
+  const [role, setRole] = useState();
+
   const getPets = () => {
     _get('http://localhost:3001/pets')
       .then((response) => {
@@ -73,6 +80,8 @@ const handleAgeUpdate = (event) => {
 }
 const handleAgeChange = () => {
   _put(`http://localhost:3001/pets/changeAge/${id}/${agee}`)
+  window.location.reload()
+
 }
 
 
@@ -88,12 +97,14 @@ const handleLocationUpdate = (event) => {
 //http://localhost:3001/pets/changeLocation/1?state=Colorado
 const handleLocationChange = () => {
   _put(`http://localhost:3001/pets/changeLocation/${id}?state=${locationn}`)
+  window.location.reload()
+
 }
 
 
 
 
-const typeOptions = Object.values(petCategory).map((type) => (
+const typeOptions = Object.values(myPetCategory).map((type) => (
   <option key={type} value={type}>{type}</option>
 ));
 const catBreedOptions = Object.values(CatBreed).map((breed) => (
@@ -128,28 +139,47 @@ const handleBreedUpdate = (event) => {
 //http://localhost:3001/pets/changeTypeAndBreed/1?type=dog&breed=domestic
 const handleTypeAndBreedChange = () => {
   _put(`http://localhost:3001/pets/changeTypeAndBreed/${id}?type=${typee}&breed=${breedd}`)
+  window.location.reload()
+
+}
+const getRole = async (id) => {
+  await _get(`http://localhost:3001/users/user-role/${id}`).then((shelters) => {
+    if(shelters){
+      setRole(shelters.data)
+    }else{console.log("No resp")}
+  }).catch ((e) =>{
+    console.log(e)
+  })
 }
 
-
-
-
-
-  useEffect(() => {
+useEffect(() => {
+  const token = getToken("token");
+  if (token) {
+    const decodedToken = jwt(token);
     getPets();
-  }, []);
+    if (decodedToken) {
+      setIsToken(decodedToken.id);
+      setRole(getRole(decodedToken.id))
+    } 
+  } else{history('/accessdenied/accessdenied')}
+}, []);
 
   // get product
   const singleProduct = pets.find((product) => product.id === parseInt(productId));
 
   // Check if singleProduct is defined before destructuring its properties
-  const { id, name, description, age, state, petCategory1, breed } = singleProduct || {};
+  const { id, name, description, age, state, petCategory, breed, userId, image: customImageName } = singleProduct || {};
 
   const handleNameChange = () => {
     _put(`http://localhost:3001/pets/changeName/${id}/${namee}`)
+    window.location.reload()
+
   }
 
   const handleDescriptionChange = () => {
     _put(`http://localhost:3001/pets/changeDescription/${id}/${descriptionn}`)
+    window.location.reload()
+
   }
   
   const setDogs = () => {
@@ -275,6 +305,8 @@ const updateImage = async (id, image) => {
     await _put(`http://localhost:3001/pets/updateImage/${id}`, {
       image: imgURL
     });
+    window.location.reload()
+
   } catch (e) {
     console.log(e);
   }
@@ -284,18 +316,20 @@ const deleteImage = async(id) => {
     await _put(`http://localhost:3001/pets/updateImage/${id}`, {
       image: null
     });
+    window.location.reload()
   } catch (e) {
     console.log(e);
   }
 }
   return (
-    <main>
+    <main style={{backgroundColor: "rgb(237 234 217)"}}>
       <Navbar />
+      <div className={styles.roww}>
       <div className="pg-header">
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-7">
-              <h1>{name}</h1>
+              <h1 style={{textAlign:"center"}}>{name}</h1>
               {/* <p>{pathname}</p> */}
             </div>
             <div className="col-lg-5"></div>
@@ -305,11 +339,12 @@ const deleteImage = async(id) => {
       <div className="container content">
         <div className="row">
           <div className="col-lg-5">
-            <img src={petImage} alt="" className="img-fluid" />
+            <img src={customImageName || petImage} alt="" className={`img-fluid ${styles.imgFluid}`} />
           </div>
           <div className="col-lg-7">
             <h2 className="price">
-              <strong>{breed} {petCategory1} {age}</strong>
+              <strong>{breed} {petCategory} {age}</strong>
+              {String(role) == "admin" ? <strong> / petId {id}, ownerId {userId}</strong>:null}
               
             </h2>
             <p className="price">
@@ -329,15 +364,21 @@ const deleteImage = async(id) => {
           </div>
         </div>
       </div>
+      </div>
+      <div>
 
 
-      <div>edit</div>
+      
 
 
-      <>
+      <div className={styles.edit}>
+      <h1 style={{marginTop: "60px"}}>Edit the details</h1>
+      <div className={styles.formm}>
+      <label>Name</label>
       <input value={namee} onChange={(event) => setNamee(event.target.value)}></input>
       <button onClick={handleNameChange}>Change name</button>
 
+      <label>Description</label>
       <textarea value={descriptionn} onChange={(event) => setDescriptionn(event.target.value)}></textarea>
       <button onClick={handleDescriptionChange}>Change description</button>
 
@@ -442,10 +483,16 @@ const deleteImage = async(id) => {
                     </>
                     : null
                     }
-                    <button onClick={() => deleteImage(id)}>Delete image</button>
+                    
                     <input type="file" onChange={handleImageUpload} />
                     <button onClick={() => updateImage(id, image)}>Update image</button>
-      </>
+                    <button onClick={() => deleteImage(id)}>Delete image</button>
+                   
+          </div>
+      </div>
+      
+      <Footer/>
+      </div>
     </main>
   );
 };

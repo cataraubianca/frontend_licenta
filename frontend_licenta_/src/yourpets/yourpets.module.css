@@ -1,0 +1,16 @@
+.cardd{
+    background-color: #efefe0;
+    border-radius: 20px;
+}
+.imagee{
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.deleteBttnn{
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+.roww{
+    height: unset;
+}

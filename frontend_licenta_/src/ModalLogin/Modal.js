@@ -8,7 +8,7 @@ function Modal({ setOpenModal }) {
   const [ pressed, setPressed ] = useState(true)
   return (
     <div className="modalBackground">
-      <div className="modalContainer">
+      <div className="modalContainerlogin">
         <div className="titleCloseBtn">
         <button className="loginbttn"
             onClick={() => {

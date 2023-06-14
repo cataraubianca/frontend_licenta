@@ -10,3 +10,18 @@
     margin-bottom: 25px;
     margin-left: 110px;
 }
+.customCard {
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Custom Image Wrap Styles */
+.customImgWrap {
+  position: relative;
+  overflow: hidden;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+.cont{min-height: 100%;background-color: "#c2bb9b"}

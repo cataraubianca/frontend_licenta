@@ -17,6 +17,9 @@ import { useNavigate } from "react-router-dom";
 import jwt from "jwt-decode";
 import { getToken } from "../utils/storage";
 import { storage } from "../firebase";
+import Footer from "../footer/footer";
+import { useEffect } from "react";
+import Modal from "../ModalLogin/Modal";
 export const SetForAdoption = () => {
     const history = useNavigate()
     const stateOptions = Object.values(States).map((state) => (
@@ -37,10 +40,14 @@ export const SetForAdoption = () => {
     const [image, setImage] = useState();
     const [filename, setFilename] = useState('');
     const [imageId, setImageId] = useState('');
-    const [user, setUser] = useState(jwt(getToken("token")).id);
+    const [user, setUser] = useState(null);
     const [url, setURL] = useState();
     const [succesMessage, setSuccesMessage] = useState(false);
-    const [failMessage, setFailMessage] = useState(false);
+    const [failMessage, setFailMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+    const [modalOpen, setModalOpen] = useState(false);
+    
+const [warningMessage, setWarningMessage] = useState('');
     const handleAgeChange = (event) => {
         setAge(event.target.value);
         console.log(event.target.value)
@@ -70,8 +77,16 @@ export const SetForAdoption = () => {
       console.log(errors);
       
 
-    
-
+      useEffect(() => {
+        const token = getToken("token");
+        if (token) {
+          const decodedToken = jwt(token);
+          if (decodedToken) {
+            setUser(decodedToken.id);
+          } 
+        }else {setModalOpen(true)}
+      }, []);
+     
 const handleImageUpload = async (event) => {
   const file = event.target.files[0];
   // const fileURL = URL.createObjectURL(file)
@@ -112,9 +127,20 @@ const handleFirebase = () => {
     );
   });
 };
+const validateForm = () => {
+  if (!name || !description || !image) {
+    setWarningMessage('Please fill in all mandatory fields.');
+    return false;
+  }
+  return true;
+};
 
 const handleFormSubmit = async (e) => {
   e.preventDefault();
+
+  if (!validateForm()) {
+    return;
+  }
 
   try {
     const imgURL = await handleFirebase();
@@ -129,10 +155,10 @@ const handleFormSubmit = async (e) => {
       userId: user,
       image: imgURL
     });
-    setSuccesMessage(true);
+    setSuccessMessage('Added pet successfully!');
   } catch (e) {
     console.log(e);
-
+    setFailMessage('Failed to add pet. Please try again.');
 
   }
 };
@@ -140,12 +166,18 @@ const handleFormSubmit = async (e) => {
       
     return (
         <div className={styles.allall}>
+          {modalOpen && <Modal setOpenModal={setModalOpen} />}
         <Navbar/>
+        
         <div className={styles.all}>
         <div className={styles.titles}>
         <div className={styles.title1}>Time to find your pet a new home?</div>
         <div className={styles.title2}>We got you!</div>
         <div className={styles.title3}>Fill out the form below and let's get started</div>
+        {successMessage && <div style={{ color: 'green' }}>{successMessage}</div>}
+{failMessage && <div style={{ color: 'red' }}>{failMessage}</div>}
+{warningMessage && <div style={{ color: 'orange' }}>{warningMessage}</div>}
+
         </div>
         <form className={styles.formm} onSubmit={handleFormSubmit}>
           <div className={styles.content}>
@@ -259,13 +291,16 @@ const handleFormSubmit = async (e) => {
 
             <div>Ready to set your pet for adoption?</div>
             {succesMessage ? <div style={{color: "green"}}>Added pet successfully!</div>: null}
-            <button type="submit">Yes!{" "}</button>{" "}
-            
+            <button type="submit" onClick={() => handleFormSubmit}>Yes!{" "}</button>{" "}
+            {user==null? (<div style={{color:"red"}}> You need to log in first</div>):null}
             </div>
-           
+            
         </form>
         
         </div>
+        
+
+        <Footer/>
         </div>
     )
 }

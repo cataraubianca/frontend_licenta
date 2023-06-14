@@ -21,7 +21,18 @@
     color: black;
     flex-direction: column;
     padding: 25px;
+    margin-left: 0px !important;
+    margin-top: 0px !important;
 
+  }
+  .successMessage {
+    color: green;
+    margin-bottom: 10px;
+  }
+  
+  .errorMessage {
+    color: red;
+    margin-bottom: 10px;
   }
   
   .modalContainer .title {

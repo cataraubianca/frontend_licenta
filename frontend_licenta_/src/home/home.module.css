@@ -1,6 +1,5 @@
 .container {  display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 6fr 6fr 6fr 6fr ;
   grid-auto-columns: 1fr;
   gap: 0px 0px;
   grid-auto-flow: row;
@@ -12,13 +11,13 @@
 
 }
 
-.search { grid-area: search; }
+.search { grid-area: search;height: 120vh; }
 
-.featured { grid-area: featured;background-color: #efefe0; display: flex ; justify-content: center }
+.featured { grid-area: featured;background-color: #efefe0;height:150vh; display: flex ; justify-content: center }
 
 .tools { grid-area: tools; background-color: #c2bb9b;}
 
-.advice { grid-area: advice; background-color: #efefe0; }
+.advice { grid-area: advice; background-color: #efefe0;  height: 100vh;}
 
 
   
@@ -113,9 +112,7 @@ margin-left: 20px;
   box-shadow: none;
   transform: translateY(0);
 }
-  button:focus{
-    background:rgb(170, 205, 233);
-}
+
     
 .description { grid-area: description;
   text-align: center;
@@ -148,7 +145,7 @@ margin-left: 20px;
 .featuredContent{
   display: flex;
   justify-content:center;
-  margin-top: 75px;
+  margin-top: 250px;
 }
 
 .check{

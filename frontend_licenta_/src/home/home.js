@@ -8,6 +8,7 @@ import cat from '../images/animated_cat(1).png'
 import lady_with_dogs from '../images/lady_with_dogs.png'
 import { useNavigate } from "react-router-dom";
 import FindPetComponent from "../findcomponent/findcomponent";
+import Footer from "../footer/footer";
 export const Home = () => {
     const history = useNavigate();
     const [ showDogs, setShowDogs ] = useState(true);
@@ -16,7 +17,6 @@ export const Home = () => {
     const [ showShelters, setShowShelters ] = useState(false);
     useEffect(() => {
         setDogs();
-        console.log("workeedd")
     }, []);
     const setDogs = () => {
         setShowCats(false);
@@ -57,11 +57,6 @@ export const Home = () => {
                 <ProductSlider />
                 </div>
                 </div>
-
-
-
-
-
             <div className={styles.tools}>
                 <h1 className={styles.check}>Check out adoption advice</h1>
                 <div className={styles.dogandcat}>
@@ -111,6 +106,7 @@ export const Home = () => {
       >
         Need more info about a breed? Ask our AI virtual assistant!
       </button>
+      <Footer/>
         </>
     )
 }

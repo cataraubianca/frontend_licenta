@@ -11,7 +11,7 @@
 
   }
   
-  .modalContainer {
+  .modalContainerlogin {
     width: 700px;
     height: 600px;
     border-radius: 12px;
@@ -20,8 +20,8 @@
     color: black;
     flex-direction: column;
     padding: 25px;
-    margin-left: 1100px;
-    margin-top: 600px;
+    margin-left: 1100px !important;
+    margin-top: 600px !important;
   }
   
   .modalContainer .title {

@@ -4,7 +4,7 @@ import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
 import { MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator } from "@chatscope/chat-ui-kit-react";
 import { useState } from "react";
 
-const API_KEY = "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"
+const API_KEY = "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"
 
 export const Bot = () => {
     const [typing, setTyping] = useState(false);
@@ -75,7 +75,7 @@ export const Bot = () => {
     return(
         <>
         <Navbar/>
-        <div style={{ position:"relative", height:"100%-78px"}}>
+        <div style={{ position:"relative", height:"87vh"}}>
             <MainContainer>
                 <ChatContainer>
                     <MessageList

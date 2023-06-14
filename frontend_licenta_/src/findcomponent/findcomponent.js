@@ -181,10 +181,11 @@ export default function FindPetComponent() {
                     <button type="button" className={styles.searchbttn} onClick={()=>setRabbits()}>Rabbits</button>
                     <button type="button" className={styles.searchbttn} onClick={()=>setBirds()}>Birds</button>
                     <div className={styles.forminput}>
-
+                    <div className={styles.fields}>
                     {showDogs ?
                     <>
                     <h2 className={styles.searchtitlee}> Find dogs by:</h2>
+                    
                     <label className={styles.formlabel}>Location
                     <select value={location} onChange={handleLocationChange}>
                         <option></option>
@@ -247,7 +248,7 @@ export default function FindPetComponent() {
 
                     <label className={styles.formlabel}>Age
                        <select value={age} onChange={handleAgeChange}>
-                       <option>-</option>
+                       <option></option>
                         {ageOptions}
                        </select>
                     </label>
@@ -339,10 +340,11 @@ export default function FindPetComponent() {
                         </select>
                     </label>
 
-                    </>
+                    </> 
                     : null
                     }
-                    <button onClick={handleClick}>Search</button>
+                    </div>
+                    <button className={styles.search} onClick={handleClick}>Search</button>
                     </div>
                 </form>
         </div>

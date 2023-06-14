@@ -1,0 +1,94 @@
+.all {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+/* profile.module.css */
+.card {
+    height: 600px; /* Adjust the height to your desired value */
+    width: 300px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-right: 20px;
+    margin-left:30px;
+    margin-top:40px;
+    margin-bottom: 40px;
+  }
+  
+  .userInfo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-direction: column;
+  }
+  
+  .icon {
+    width: 60px; /* Adjust the size of the icon */
+    height: 60px; /* Adjust the size of the icon */
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 20px;
+    margin-top: 30px;
+  }
+  
+  .icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .userDetails {
+    flex: 1;
+  }
+  
+  .cardTitle {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 80px;
+    text-align: center;
+
+  }
+  
+  .cardContent {
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  /* profile.module.css */
+
+  .editButton {
+    background-color: #4CAF50; /* Green background color */
+    color: #fff; /* White text color */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners */
+    padding: 8px 16px; /* Reduced padding for smaller button */
+    font-size: 14px; /* Reduced font size for smaller button */
+    cursor: pointer; /* Cursor on hover */
+    display: block; /* Convert to block-level element for centering */
+    margin: 0 auto; /* Center the button horizontally */
+  }
+  
+  .editButton:hover {
+    background-color: #45a049; /* Darker green background color on hover */
+  }
+  
+  .logout {
+    background-color: #4b1d14; /* Green background color */
+    color: #fff; /* White text color */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners */
+    padding: 8px 16px; /* Reduced padding for smaller button */
+    font-size: 14px; /* Reduced font size for smaller button */
+    cursor: pointer; /* Cursor on hover */
+    display: block; /* Convert to block-level element for centering */
+    margin-top: 400px;
+    margin: 0 auto; /* Center the button horizontally */
+  }
+  
+  .logout:hover {
+    background-color: #45a049; /* Darker green background color on hover */
+  }
+  
