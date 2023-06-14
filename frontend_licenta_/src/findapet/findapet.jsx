@@ -11,16 +11,25 @@ import { useEffect } from 'react'
 import petImage from '../images/peticon.jpg'
 import jwt from "jwt-decode";
 import { getToken } from "../utils/storage";
+import Footer from '../footer/footer.js'
+import { minHeight } from '@mui/system'
+
 const FindAPet = () => {
-  const [ pressed, setPressed ] = useState(false);
+  const [pressed, setPressed] = useState(false);
   const [details, setDetails] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [items, setItems] = useState([])
   const [visible, setVisible] = useState(3)
   const [pets, setPets] = useState([])
   const [imageName, setImageName] = useState();
-  const [user, setUser] = useState(jwt(getToken("token")).id);
+  const [user, setUser] = useState(null); // Initialize user state with null
   const [allData, setAllData] = useState([]);
+  const [input, setInput] = useState("");
+  const [petsFiltered, setPetsFiltered] = useState([]);
+  const handleInputChange = (event) => {
+    setInput(event.target.value);
+  };
+
   const showMorePets = () => {
     setVisible((prevValue) => prevValue + 3);
   }
@@ -28,55 +37,37 @@ const FindAPet = () => {
   const getPets = () => {
     _get("http://localhost:3001/pets").then(async(response) => {
       if (response) {
-          setPets(response.data)
-          console.log(response.data);   }
+        setPets(response.data)
+        console.log(response.data);
+      }
     })
-    
   }
-
-
-  const getImageName= (id) => { //1
-    return _get(`http://localhost:3001/images/filename/${id}`).then((response) => {
+  const handleSearch = (text) => {
+    _get(`http://localhost:3001/pets/description/${text}`).then(async(response) => {
       if (response) {
-          setImageName(response.data)
-          console.log(response.data);   
-          return response.data
-      } else {
-          console.log("No pets found");
+        setPets(response.data)
+        console.log("Filtrate",response.data);
       }
-  }).catch((err) => {
-      console.log(err);
-  }) 
+    })
   }
 
-  const getImage = async (id) =>{ //2
-    return _get(`http://localhost:3001/images/image/${id}`).then((response) => {
-      if (response) {
-        return response.data.fileURL;
-      } else {
-          console.log("No pets found");
-      }
-  }).catch((err) => {
-      console.log(err);
-  }) 
-  }
   function scrollToWithEffect(to, duration) {
     const start = window.scrollY;
     const change = to - start;
     const increment = 20; // Adjust scroll speed here
-  
+
     let currentTime = 0;
-  
+
     function animateScroll() {
       currentTime += increment;
       const val = easeInOutQuad(currentTime, start, change, duration);
       window.scrollTo(0, val);
-  
+
       if (currentTime < duration) {
         window.requestAnimationFrame(animateScroll);
       }
     }
-  
+
     // Easing function
     function easeInOutQuad(t, b, c, d) {
       t /= d / 2;
@@ -84,58 +75,75 @@ const FindAPet = () => {
       t--;
       return (-c / 2) * (t * (t - 2) - 1) + b;
     }
-  
+
     animateScroll();
   }
 
   useEffect(() => {
     getPets();
-    //getImageName(1);
+    const token = getToken("token");
+    if (token) {
+      const decodedToken = jwt(token);
+      setUser(decodedToken.id);
+    }
   }, [])
-  
-  const addToFavorites = (petId) => {
-    _put(`http://localhost:3001/users/favorite/${user}/${petId}`)
-  }
+
+  const addToFavorites = (event, petId) => {
+    event.stopPropagation(); // Stop event propagation to prevent redirection
+    if(user==null){setModalOpen(true)}else{
+    _put(`http://localhost:3001/users/favorite/${user}/${petId}`);}
+  };
+
   return (
-    <>
-      <Navbar/>
-      {pressed ? 
-      <>
-        <CloseButton onClick={() => setPressed(!pressed)} className={styles.findbutton} variant="black" />
-        <FindPetComponent/> 
-      </>
-      : <button className={styles.advancedbutton} onClick={() => {setPressed(!pressed)}}>Advanced search</button>}
-      <div className="container content">
+    <div style={{ backgroundColor: "#c2bb9b", minHeight:"100%"}}>
+          {modalOpen && <Modal setOpenModal={setModalOpen} />}
+      <Navbar />
+      {pressed ?
+        <>
+          <CloseButton onClick={() => setPressed(!pressed)} className={styles.findbutton} variant="black" />
+          <FindPetComponent />
+        </>
+        : <button className={styles.advancedbutton} onClick={() => { setPressed(!pressed) }}>Advanced search</button>}
+        <input
+        type="text"
+        value={input}
+        onChange={handleInputChange}
+        placeholder="Enter description"
+        className={styles.ss}
+      />
+      <button onClick={()=>handleSearch(input)}>Search</button>
+      <div className={`container content ${styles.cont}`}>
         <div className="row products-row">
-          {pets.slice(0, visible).map( (pet) => {
+          {pets.slice(0, visible).map((pet) => {
             return (
-              <div className="col-lg-4" key={pet.id}>
-                
-                <div className="card">
-                  <div className="img-wrap">
-                    <img  src={pet.image || petImage} alt="" />
+              <div className="col-lg-4" key={pet.id} onClick={() => { window.location.href = `/findapet/${pet.id}`; }}>
+                <div className={`card ${styles.customCard}`}>
+                  <div className={`img-wrap ${styles.customImgWrap}`}>
+                    <img src={pet.image || petImage} alt="" />
                   </div>
-                  <div className="card-body">
-                    <h5 className="card-title">{pet.name}</h5>
-                    <h5 className="card-title">{pet.breed} {pet.petCategory}</h5>
-                    <p className="card-text">{pet.description}</p>
-                    
+                  <div className={`card-body ${styles.customCardBody}`}>
+                    <h5 className={`card-title ${styles.customCardTitle}`}>{pet.name}</h5>
+                    <h5 className={`card-title ${styles.customCardTitle}`}>
+                      {pet.breed} {pet.petCategory}
+                    </h5>
+                    <p className={`card-text ${styles.customCardText}`}>{pet.description}</p>
                   </div>
-                  
-                  <button className={styles.love} onClick={()=>addToFavorites(pet.id)}>	&#10084;</button>
+                  <button
+                  className={`${styles.love} ${styles.customLoveBtn}`}
+                  onClick={(event) => addToFavorites(event, pet.id)}
+                  >
+                &#10084;
+                </button>
+
                   <div className="d-flex justify-content-between align-items-center p-3 m-1">
-                      <Link to={`/findapet/${pet.id}`} className="btn btn-primary btn-sm" onClick={() => setDetails(true)}>DETAILS &#8594;</Link>
-                    </div>
-                  
+                  </div>
                 </div>
-              {modalOpen && <Modal setOpenModal={setModalOpen} />}
-              
+                {modalOpen && <Modal setOpenModal={setModalOpen} />}
               </div>
-              
-            )
-          } )}
+            );
+          })}
         </div>
-        {visible<pets.length && <button  onClick={showMorePets}>Load more</button> }
+        {visible < pets.length && <button style={{ marginBottom: "40px" }} onClick={showMorePets}>Load more</button>}
       </div>
       <button
         onClick={() => {
@@ -151,13 +159,14 @@ const FindAPet = () => {
           color: '#fff',
           textAlign: 'center',
           width: '70px',
-          
         }}
       >
         ↑
       </button>
-    </>
-  )
+      {pets.length ==0 ? <div>No pets found</div>:null}
+      
+    </div>
+  );
 }
 
-export default FindAPet
+export default FindAPet;

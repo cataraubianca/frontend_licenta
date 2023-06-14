@@ -9,7 +9,7 @@ import { _get } from "../utils/api";
 import Modal from "../ModalLogin/Modal";
 import petImage from '../images/peticon.jpg'
 import { Link } from 'react-router-dom'
-
+import Footer from "../footer/footer";
 const AdvancedSearch = (props) =>  {
   const [modalOpen, setModalOpen] = useState(false);
   const [pressed, setPressed] = useState(false);
@@ -70,7 +70,7 @@ const AdvancedSearch = (props) =>  {
     getPets();
   },[])
   return (
-    <>
+    <div style={{ backgroundColor: "#c2bb9b", minHeight:"100%" }}>
       <Navbar />
       {pressed ? (
         <>
@@ -81,14 +81,14 @@ const AdvancedSearch = (props) =>  {
         <button className={styles.advancedbutton} onClick={() => {setPressed(!pressed)}}>Advanced search</button>
       )}
 
-<div className="container content">
+<div className={`container content ${styles.cont}`}>
         <div className="row products-row">
           {pets.slice(0, visible).map( (pet) => {
             return (
-              <div className="col-lg-4" key={pet.id}>
+              <div className="col-lg-4" key={pet.id} onClick={() => { window.location.href = `/findapet/${pet.id}`; }}>
                 
-                <div className="card">
-                  <div className="img-wrap">
+                <div className={`card ${styles.customCard}`}>
+                  <div className={`img-wrap ${styles.customImgWrap}`}>
                     <img src={pet.image || petImage} alt="" />
                   </div>
                   <div className="card-body">
@@ -98,7 +98,6 @@ const AdvancedSearch = (props) =>  {
                     
                   </div>
                   <div className="d-flex justify-content-between align-items-center p-3 m-1">
-                      <Link to={`/findapet/${pet.id}`} className="btn btn-primary btn-sm" onClick={() => setDetails(true)}>DETAILS &#8594;</Link>
                     </div>
                 </div>
               {modalOpen && <Modal setOpenModal={setModalOpen} />}
@@ -124,12 +123,13 @@ const AdvancedSearch = (props) =>  {
           color: '#fff',
           textAlign: 'center',
           width: '70px',
-          
+          marginBottom: '30px'
         }}
       >
         ↑
       </button>
-    </>
+      <Footer/>
+    </div>
   );
 }
 

@@ -16,6 +16,7 @@ code {
   display: flex;
   flex-direction: row;
   align-items: stretch;
+  height: 600px;
 }
 
 .products-row .col-lg-4 {

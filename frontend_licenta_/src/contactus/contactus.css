@@ -33,7 +33,7 @@ form {
   
   /* Styling for the submit button */
   input[type="submit"] {
-    background-color: #21474b;
+    background-color: #649ea4;
     color: #fff;
     padding: 10px 20px;
     border: none;
@@ -56,5 +56,17 @@ form {
   
   .navbar a:hover {
     text-decoration: underline;
+  }
+  .successMessage {
+    color: green;
+    margin-bottom: 10px;
+    text-align: center;
+
+  }
+  
+  .errorMessage {
+    color: red;
+    margin-bottom: 10px;
+    text-align: center;
   }
   

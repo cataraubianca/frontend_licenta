@@ -1,0 +1,17 @@
+.all{
+    background-color: #caa0a8;
+    height: 80%;
+}
+.card{
+    background-color: #efefe0;
+    border-radius: 20px;
+}
+.image{
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.deleteBttn{
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}

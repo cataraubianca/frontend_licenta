@@ -16,7 +16,8 @@
 .authformcontainerlogin, .authformcontainerregister, .loginform, .registerform, .recoverform {
   display: flex;
   flex-direction: column;
-  top: -40px
+  top: -40px;
+  display: inline-table;
 }
 
  .authformcontainerlogin{
@@ -45,7 +46,7 @@
 
 .registerform {
   position: relative;
-  top: -20px;
+  min-width: 500px
 }
 
 .divlogin {

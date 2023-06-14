@@ -17,6 +17,10 @@ import Favorites from './favorites/favorites';
 import YourPets from './yourpets/yourpets';
 import EditPet from './yourpets/editpet';
 import { ContactUs } from './contactus/contactus';
+import { Profile } from './profile/profile';
+import Swipe from './swipe/swipe';
+import { AccessDenied } from './accessdenied/accessdenied';
+import { Mission } from './mission/mission';
 function App() {
   return (
     <>
@@ -39,6 +43,10 @@ function App() {
           <Route exact path="/favorites/favorites" element={<Favorites/>}/>
           <Route exact path="/yourpets/yourpets" element={<YourPets/>}/>
           <Route exact path="/contactus/contactus" element={<ContactUs/>}/>
+          <Route exact path="/profile/profile" element={<Profile/>}/>
+          <Route exact path="/swipe/swipe" element={<Swipe/>}/>
+          <Route exact path="/accessdenied/accessdenied" element={<AccessDenied/>}/>
+          <Route exact path="/mission/mission" element={<Mission/>}/>
         </Routes>
       </Router>
       </>

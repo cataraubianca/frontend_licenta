@@ -1,20 +1,18 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
+import petImage from '../images/peticon.jpg'
 
-const ProductCard = props => {
+const ProductCard = ({pet}) => {
   return (
     <>
-      <Card style={{ width: "inherit", backgroundColor: "#caa0a8" }}>
-        <Card.Img variant="top" src={props.imgSrc} />
+      <Card onClick={() => { window.location.href = `/findapet/${pet.id}`; }} style={{ height:"80vh",width: "inherit", backgroundColor: "#caa0a8" , borderRadius:"20px"}}>
+        <Card.Img style={{height:"50vh",borderTopLeftRadius: "20px", borderTopRightRadius:"20px"}} variant="top" src={pet.image || petImage} />
         <Card.Body>
-          <Card.Title>Card Title</Card.Title>
+          <Card.Title>{pet.name}</Card.Title>
+          <h4>{pet.breed} {pet.petCategory}</h4>
           <Card.Text>
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
+            {pet.description}
           </Card.Text>
-          <div className="product-actions">
-            <Button style={{ backgroundColor: "#efefe0", color: "black", borderColor: "#efefe0"}}>See this pet</Button>
-          </div>
         </Card.Body>
       </Card>
     </>

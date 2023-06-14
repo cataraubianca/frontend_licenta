@@ -8,12 +8,13 @@ import Modal from "../ModalLogin/Modal";
 import { getToken, deleteToken } from "../utils/token";
 import jwt from "jwt-decode";
 import { _get } from "../utils/api";
-
+import logo from '../images/logomic.png';
 export default function Navbar() {
 //   const history = useNavigate();
   //const [token, setToken] = useState(() => {
   //  return jwt(getToken("token")) || ""
   //});
+
   const [token, setToken] = useState(() => {
     const storedToken = getToken("token");
     return storedToken ? jwt(storedToken) : null;
@@ -63,41 +64,48 @@ export default function Navbar() {
         <div className={navStyles.navbarlinks}>
           <ul>
             <li>
-              <CustomLink to="/home/home" className={navStyles.differentnavbarlink} id="home-tab">Page name🐾</CustomLink>
+            <CustomLink to="/home/home" className={navStyles.differentnavbarlink} id="home-tab"><img style={{ width: '100px', height: '80px' }} src={logo} alt="Logo" /></CustomLink>
             </li>
 
             <li>
-              <CustomLink to="/findapet/findapet" id="profile-tab">Find a pet</CustomLink>
+              <CustomLink to="/mission/mission" className="nav-link">Our mission</CustomLink>
             </li> 
 
             <li>
-              <CustomLink to="/setforadoption/setforadoption" id="profile-tab">Set for adoption</CustomLink>
+              <CustomLink to="/findapet/findapet" className="nav-link">Find a pet</CustomLink>
+            </li> 
+
+            <li>
+              <CustomLink to="/swipe/swipe" className="nav-link">Swipe</CustomLink>
+            </li> 
+            <li>
+              <CustomLink to="/setforadoption/setforadoption" className="nav-link">Set for adoption</CustomLink>
             </li>
             <li>
-              <CustomLink to="/shelters/shelters" id="profile-tab">Shelters</CustomLink>
+              <CustomLink to="/shelters/shelters" className="nav-link">Shelters</CustomLink>
             </li>
             { String(role) == 'admin' ?<li>
-              <CustomLink to="/admin/admin" id="profile-tab">Admin</CustomLink>
+              <CustomLink to="/admin/admin" className="nav-link">Admin</CustomLink>
             </li> : null}
             <li>
-              <CustomLink to="/contactus/contactus" id="profile-tab">Contact us</CustomLink>
+              <CustomLink to="/contactus/contactus" className="nav-link">Contact us</CustomLink>
             </li>
             {token ? <li>
-              <CustomLink to="/favorites/favorites" id="profile-tab" >	&#10084;</CustomLink>
+              <CustomLink to="/favorites/favorites" className="nav-link" >	&#10084;</CustomLink>
             </li>:null}
             {token ? <li>
-              <CustomLink to="/yourpets/yourpets" id="profile-tab" >	Your pets</CustomLink>
+              <CustomLink to="/yourpets/yourpets" className="nav-link" >	Your pets</CustomLink>
             </li>:null}
             {/* {token?.role=='Admin' ? <li>
               <CustomLink to="/AdminPage" id="admin-page-tab">AdminPage</CustomLink>
             </li> : null}  */}
-            
           </ul>
 
-         
         </div>
         <div className={navStyles.title}>
-          {token ? <button id="logout-button" className={navStyles.loginbttn} onClick={() => handleLogOut()}>Logout</button>: <button id="logout-button" className={navStyles.loginbttn} onClick={() => setModalOpen(true)}>Authentication</button>}
+          {token ? <button id="logout-button" className={navStyles.loginbttn}>
+          <Link to="/profile/profile" className="profile-tab">Profile</Link>
+          </button>: <button id="logout-button" className={navStyles.loginbttn} onClick={() => setModalOpen(true)}>Authentication</button>}
         </div>
         {modalOpen && <Modal setOpenModal={setModalOpen} />}
       </nav>

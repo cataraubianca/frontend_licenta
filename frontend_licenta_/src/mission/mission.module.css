@@ -1,0 +1,33 @@
+/* mission.module.css */
+.allall{
+    background-color: #ddd5b2;
+}
+.all {
+    margin: 20px;
+    max-width: 100vh;
+    margin-left: 55vh;
+    margin-top: 30px;
+  }
+  
+  .description {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .bigTitle {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .smallTitle {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 5px;
+  }
+  
+  .content {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  

@@ -1,0 +1,29 @@
+/* singlepet.module.css */
+
+.pg-header {
+    background-color: #c2bb9b;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .container.content {
+    margin-top: 20px;
+  }
+  
+  .img-fluid {
+    max-width: 100%;
+    border-radius: 20px;
+    margin-bottom: 69px;
+  }
+  
+  .price {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .btn {
+    margin-right: 10px;
+    background-color:  #efefe0;
+    color: #21474b
+  }
+  
