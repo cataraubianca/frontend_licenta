@@ -16,7 +16,7 @@ export const Signup = () => {
   const [errorName, setErrorName] = useState('');
   const [errorEmail, setErrorEmail] = useState('');
   const [errorPass, setErrorPass] = useState('');
-
+  const [successMessage, setSuccessMessage] = useState('');
   const handleEmailChange = (e) => {
     setEmailError("");
     setEmail(e.target.value);
@@ -73,6 +73,7 @@ export const Signup = () => {
     })
       .then((response) => {
         console.log(response.data);
+        setSuccessMessage('Signup successful! Go to login. ');
         setSignupError("");
         setEmail("");
         setPassword("");
@@ -91,6 +92,7 @@ export const Signup = () => {
           <div className={styles.authformcontainerregister}>
             <form className={styles.registerform} onSubmit={handleFormSubmit}>
               {errorName && <div className={styles.error}>{errorName}</div>}
+              {successMessage && <div className={styles.success}>{successMessage}</div>}
               <label htmlFor="firstname">Name:</label>
               <input
                 className={styles.inputregister}

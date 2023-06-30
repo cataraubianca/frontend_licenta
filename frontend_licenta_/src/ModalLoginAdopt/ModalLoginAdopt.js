@@ -7,7 +7,7 @@ import { getToken } from "../utils/token";
 function ModalLoginAdopt({ setOpenModal }) {
   const [ pressed, setPressed ] = useState(true)
   return (
-    <div className="modalBackground">
+    <div className="modalBackgroundAdopt">
       <div className="modalContainerlogin">
         <div className="titleCloseBtn">
         <button className="loginbttn"

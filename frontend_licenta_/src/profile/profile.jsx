@@ -122,21 +122,24 @@ const handleLogOut = () => {
         <button id="logout-button" className={styles.logout} onClick={() => handleLogOut()}>Logout</button>
       </div>
       <div>
-        {pets.length != 0 ?
+        {pets.length > 0 ?
           (<><h1 className={styles.cardTitle}>Your pets:</h1>
           <div className="carousel-container">
-            {pets ? (
+            {pets.length > 1 ? (
               <Slider {...carouselSettings}>
                 {pets.map((pet) => (
                   <PetCard key={pet.id} pet={pet} />
                 ))}
               </Slider>
-            ) : (
-              <div className={styles.cardContent}>
-                You haven't set any pets for adoption yet
-              </div>
-            )}
-          </div></>):<div style={{textAlign:"center", marginLeft:"100vh"}}>You haven't posted any pets for adoption yet</div>}
+            ) : null}
+            {
+              pets.length == 1 ? (
+                <div style={{marginRight:"20px"}}>
+                <PetCard  pet={pets[0]} />
+                </div>
+              ) : null
+            }
+          </div></>):(<div style={{textAlign:"center", marginLeft:"50vh", marginRight:"70vh", marginTop:"40vh"}}>You haven't posted any pets for adoption yet</div>)}
         </div>
       </div>
       <Footer />

@@ -156,6 +156,7 @@ const handleFormSubmit = async (e) => {
       image: imgURL
     });
     setSuccessMessage('Added pet successfully!');
+    window.location.reload()
   } catch (e) {
     console.log(e);
     setFailMessage('Failed to add pet. Please try again.');
