@@ -7,8 +7,8 @@ import { getToken } from "../utils/token";
 function Modal({ setOpenModal }) {
   const [ pressed, setPressed ] = useState(true)
   return (
-    <div className="modalBackground">
-      <div className="modalContainerlogin">
+    <div className="modalBackgroundd">
+      <div className="modalContainerloginn">
         <div className="titleCloseBtn">
         <button className="loginbttn"
             onClick={() => {

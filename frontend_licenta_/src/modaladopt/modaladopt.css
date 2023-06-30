@@ -1,15 +1,15 @@
 .modalBackground {
-    width: 10%;
-    height: 10%;
-    background-color: rgba(200, 200, 200, 0.3);
-    position: fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 10;
-    margin-top: -2px;
-    min-width: 500px;
-    margin-left: -100px;
+  width: 10%;
+  height: 10%;
+  /* background-color: rgba(200, 200, 200, 0.3); */
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  margin-top: -20px;
+  min-width: 500px;
+  margin-left: -100px;
   }
   
   .modalContainer {

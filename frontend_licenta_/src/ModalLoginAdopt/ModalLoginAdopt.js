@@ -1,14 +1,14 @@
 import React from "react";
-import "./Modal.css";
+import "./ModalLoginAdopt.css";
 import { useState } from "react";
 import { Login } from "../login/login";
 import { Signup } from "../signup/signup";
-
-function Modal({ setOpenModal }) {
+import { getToken } from "../utils/token";
+function ModalLoginAdopt({ setOpenModal }) {
   const [ pressed, setPressed ] = useState(true)
   return (
     <div className="modalBackground">
-      <div className="modalContainer">
+      <div className="modalContainerlogin">
         <div className="titleCloseBtn">
         <button className="loginbttn"
             onClick={() => {
@@ -42,4 +42,4 @@ function Modal({ setOpenModal }) {
   );
 }
 
-export default Modal;
+export default ModalLoginAdopt;

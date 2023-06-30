@@ -1,7 +1,6 @@
-.modalBackground {
+.modalBackgroundd {
     width: 100%;
     height: 100%;
-    background-color: rgba(200, 200, 200, 0.3);
     position: fixed;
     display: flex;
     justify-content: center;
@@ -11,7 +10,7 @@
 
   }
   
-  .modalContainerlogin {
+  .modalContainerloginn {
     width: 700px;
     height: 600px;
     border-radius: 12px;
@@ -20,8 +19,8 @@
     color: black;
     flex-direction: column;
     padding: 25px;
-    margin-left: 1100px !important;
-    margin-top: 600px !important;
+
+    margin-top: 750px !important;
   }
   
   .modalContainer .title {

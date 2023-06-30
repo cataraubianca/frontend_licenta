@@ -8,9 +8,18 @@ import Navbar from "../navbar/navbar";
 import { useNavigate } from "react-router-dom";
 import { _get } from "../utils/api";
 import { useState } from "react";
+import { getToken, deleteToken } from "../utils/token";
+import jwt from "jwt-decode";
 
 export const Shelters = () => {
     const [shelters, setShelters] = useState([]);
+    const [token, setToken] = useState(() => {
+        const storedToken = getToken("token");
+        return storedToken ? jwt(storedToken) : null;
+      });
+      
+      const [isTokenExists, setIsTokenExists] = useState(!!getToken());
+      const [role, setRole] = useState();
     const history = useNavigate()
     const getShelters = () => {
         _get("http://localhost:3001/shelters").then((shelters) => {
@@ -35,7 +44,19 @@ export const Shelters = () => {
             link: "https://www.facebook.com/"
         }
     ];
-
+    const getRole = async (id) => {
+        await _get(`http://localhost:3001/users/user-role/${id}`).then((shelters) => {
+          if(shelters){
+            setRole(shelters.data)
+          }else{console.log("No resp")}
+        }).catch ((e) =>{
+          console.log(e)
+        })
+    }
+      useEffect(()=>{
+        setIsTokenExists(!!getToken())
+        if(getToken("token")){setRole(getRole(jwt(getToken("token")).id));}
+      },[token])
     const customIcon = new Icon({
         iconUrl: require("../images/marker.png"),
         iconSize: [38,38]
@@ -65,6 +86,7 @@ export const Shelters = () => {
             <Marker position={[marker.geocodex, marker.geocodey]} icon={customIcon}>
                 <Popup>
                     <button onClick={() => window.location.replace(`${marker.link}`)}>{marker.name}</button>
+                    { String(role) == 'admin' ? <div>shelter id: {marker.id}</div>:null}
                 </Popup>
             </Marker>
         ))

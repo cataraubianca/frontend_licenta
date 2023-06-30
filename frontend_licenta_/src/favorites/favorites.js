@@ -100,7 +100,7 @@ const Favorites = () => {
         
         <div className={`container content ${styles.all}`} >
         <h2 style={{marginTop: "30px", marginBottom: "30px"}}>Favorites</h2>
-      {pets.length == 0?<div>No pets found</div>:null}
+      {pets.length == 0?<div style={{height:"84vh"}}>No pets found</div>:null}
 
         <div className="row products-row" style={{height:"unset"}}>
           {pets.slice(0, visible).map( (pet) => {

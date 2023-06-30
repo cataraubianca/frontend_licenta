@@ -19,7 +19,7 @@ import { getToken } from "../utils/storage";
 import { storage } from "../firebase";
 import Footer from "../footer/footer";
 import { useEffect } from "react";
-import Modal from "../ModalLogin/Modal";
+import ModalLoginAdopt from "../ModalLoginAdopt/ModalLoginAdopt";
 export const SetForAdoption = () => {
     const history = useNavigate()
     const stateOptions = Object.values(States).map((state) => (
@@ -166,7 +166,8 @@ const handleFormSubmit = async (e) => {
       
     return (
         <div className={styles.allall}>
-          {modalOpen && <Modal setOpenModal={setModalOpen} />}
+          {modalOpen && <div><ModalLoginAdopt setOpenModal={setModalOpen} /></div>}
+
         <Navbar/>
         
         <div className={styles.all}>
@@ -176,7 +177,6 @@ const handleFormSubmit = async (e) => {
         <div className={styles.title3}>Fill out the form below and let's get started</div>
         {successMessage && <div style={{ color: 'green' }}>{successMessage}</div>}
 {failMessage && <div style={{ color: 'red' }}>{failMessage}</div>}
-{warningMessage && <div style={{ color: 'orange' }}>{warningMessage}</div>}
 
         </div>
         <form className={styles.formm} onSubmit={handleFormSubmit}>
@@ -280,7 +280,7 @@ const handleFormSubmit = async (e) => {
                         ))}
             </select>
             <div>Enter your pets description</div>
-            <textarea value={description} onChange={handleDescriptionChange} type="text"  />
+            <textarea value={description} onChange={handleDescriptionChange} type="text"   maxlength="349"/>
             <div>Adoption Location</div>
             <select value={location} onChange={handleLocationChange}>
                 {stateOptions}
@@ -292,6 +292,7 @@ const handleFormSubmit = async (e) => {
             <div>Ready to set your pet for adoption?</div>
             {succesMessage ? <div style={{color: "green"}}>Added pet successfully!</div>: null}
             <button type="submit" onClick={() => handleFormSubmit}>Yes!{" "}</button>{" "}
+            {warningMessage && <div style={{ color: 'orange' }}>{warningMessage}</div>}
             {user==null? (<div style={{color:"red"}}> You need to log in first</div>):null}
             </div>
             

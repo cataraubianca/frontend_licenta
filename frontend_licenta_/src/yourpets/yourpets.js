@@ -112,7 +112,7 @@ const YourPets = () => {
         <div className="container content">
         <h2 style={{marginTop:"30px", marginBottom:"30px"}}>Your pets posted for adoption</h2>
 
-      {pets.length == 0?<div>No pets found</div>:null}
+      {pets.length == 0?<div style={{height:"84vh"}}>No pets found</div>:null}
 
         <div className={`row products-row ${styles.roww}`}>
           {pets.slice(0, visible).map( (pet) => {

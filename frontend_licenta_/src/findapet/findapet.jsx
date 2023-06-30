@@ -19,7 +19,7 @@ const FindAPet = () => {
   const [details, setDetails] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [items, setItems] = useState([])
-  const [visible, setVisible] = useState(3)
+  const [visible, setVisible] = useState(6)
   const [pets, setPets] = useState([])
   const [imageName, setImageName] = useState();
   const [user, setUser] = useState(null); // Initialize user state with null
@@ -31,7 +31,7 @@ const FindAPet = () => {
   };
 
   const showMorePets = () => {
-    setVisible((prevValue) => prevValue + 3);
+    setVisible((prevValue) => prevValue + 6);
   }
 
   const getPets = () => {
@@ -113,7 +113,7 @@ const FindAPet = () => {
       />
       <button onClick={()=>handleSearch(input)}>Search</button>
       <div className={`container content ${styles.cont}`}>
-        <div className="row products-row">
+        <div className="row products-row"  style={{height:"unset"}}>
           {pets.slice(0, visible).map((pet) => {
             return (
               <div className="col-lg-4" key={pet.id} onClick={() => { window.location.href = `/findapet/${pet.id}`; }}>
