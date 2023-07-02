@@ -32,16 +32,16 @@ export const Shelters = () => {
     const markers = [
         {
             geocode: [48.86, 2.3522],
-            popUp: "Hello, I am pop up 1",
-            link: "https://www.facebook.com/"
+            popUp: "Blue Cross",
+            link: "https://www.bluecross.org.uk/"
         },{
             geocode: [48.85, 2.3522],
-            popUp: "Hello, I am pop up 2",
-            link: "https://www.facebook.com/"
+            popUp: "Pet Rescue",
+            link: "https://www.petrescue.com.au/"
         },{
             geocode: [48.855, 2.34],
-            popUp: "Hello, I am pop up 3",
-            link: "https://www.facebook.com/"
+            popUp: "Adopt Shelter",
+            link: "https://www.adoptpetshelter.org/"
         }
     ];
     const getRole = async (id) => {

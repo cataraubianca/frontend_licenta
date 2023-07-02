@@ -6,9 +6,12 @@ import CloseButton from 'react-bootstrap/CloseButton';
 import { useState } from "react";
 import styles from './advancedsearch.module.css'
 import { _get } from "../utils/api";
-import Modal from "../ModalLogin/Modal";
+import Modal from "../ModalLoginAdopt/ModalLoginAdopt";
 import petImage from '../images/peticon.jpg'
 import { Link } from 'react-router-dom'
+import jwt from "jwt-decode";
+import { _put } from "../utils/api";
+import { getToken } from "../utils/storage";
 import Footer from "../footer/footer";
 const AdvancedSearch = (props) =>  {
   const [modalOpen, setModalOpen] = useState(false);
@@ -17,6 +20,7 @@ const AdvancedSearch = (props) =>  {
   const [location,setLocation] = useState(localStorage.getItem('location'));
   const [type, setType] = useState(localStorage.getItem('type'));
   const [breed, setBreed] = useState(localStorage.getItem('breed'));
+  const [user, setUser] = useState(null); // Initialize user state with null
   const [pets, setPets] = useState([]);
   const [details, setDetails] = useState(false);
   const [visible, setVisible] = useState(3);
@@ -50,6 +54,13 @@ const AdvancedSearch = (props) =>  {
   
     animateScroll();
   }
+
+  const addToFavorites = (event, petId) => {
+    event.stopPropagation(); // Stop event propagation to prevent redirection
+    if(user==null){setModalOpen(true)}else{
+    _put(`http://localhost:3001/users/favorite/${user}/${petId}`);}
+  };
+
   const getPets = () => {
     _get(`http://localhost:3001/pets/advanced?state=${location}&petCategory=${type}&breed=${breed}&age=${age}`).then((response) => {
       if (response) {
@@ -68,10 +79,16 @@ const AdvancedSearch = (props) =>  {
     localStorage.removeItem('type')
     localStorage.removeItem('breed')
     getPets();
+    const token = getToken("token");
+    if (token) {
+      const decodedToken = jwt(token);
+      setUser(decodedToken.id);
+    }
   },[])
   return (
     <div style={{ backgroundColor: "#c2bb9b", minHeight:"100%" }}>
       <Navbar />
+      {modalOpen && <Modal setOpenModal={setModalOpen} />}
       {pressed ? (
         <>
           <CloseButton onClick={() => setPressed(!pressed)} className={styles.findbutton} variant="black" />
@@ -82,7 +99,7 @@ const AdvancedSearch = (props) =>  {
       )}
 
 <div className={`container content ${styles.cont}`}>
-        <div className="row products-row">
+        <div className="row products-row" style={{height: "unset"}}>
           {pets.slice(0, visible).map( (pet) => {
             return (
               <div className="col-lg-4" key={pet.id} onClick={() => { window.location.href = `/findapet/${pet.id}`; }}>
@@ -95,19 +112,23 @@ const AdvancedSearch = (props) =>  {
                     <h5 className="card-title">{pet.name}</h5>
                     <h5 className="card-title">{pet.breed} {pet.petCategory}</h5>
                     <p className="card-text">{pet.description}</p>
-                    
+                    <button
+                  className={`${styles.love} ${styles.customLoveBtn}`}
+                  onClick={(event) => addToFavorites(event, pet.id)}
+                  >
+                &#10084;
+                </button>
                   </div>
                   <div className="d-flex justify-content-between align-items-center p-3 m-1">
                     </div>
                 </div>
-              {modalOpen && <Modal setOpenModal={setModalOpen} />}
               
               </div>
               
             )
           } )}
         </div>
-        {visible<pets.length && <button  onClick={showMorePets}>Load more</button> }
+        {visible<pets.length && <button style={{ marginBottom: "40px" }} onClick={showMorePets}>Load more</button> }
       </div>
       <button
         onClick={() => {
@@ -128,7 +149,6 @@ const AdvancedSearch = (props) =>  {
       >
         ↑
       </button>
-      <Footer/>
     </div>
   );
 }

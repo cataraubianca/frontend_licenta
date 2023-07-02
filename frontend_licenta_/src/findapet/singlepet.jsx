@@ -6,7 +6,7 @@ import petImage from '../images/peticon.jpg';
 import ModalAdopt from '../modaladopt/modaladopt.js';
 import styles from './singlepet.module.css';
 import Footer from '../footer/footer.js';
-import Modal from "../ModalLogin/Modal";
+import Modal from "../ModalLoginAdopt/ModalLoginAdopt";
 import jwt from "jwt-decode";
 import { getToken } from "../utils/storage";
 const SinglePet = () => {

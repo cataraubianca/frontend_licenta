@@ -3,6 +3,9 @@ import Navbar from "../navbar/navbar";
 import { _get, _post, _delete } from "../utils/api";
 import styles from "./admin.module.css";
 import Footer from "../footer/footer";
+import jwt from "jwt-decode";
+import { getToken } from "../utils/storage";
+import { useNavigate } from "react-router-dom";
 export const Admin = () => {
     const [data, setData] = useState()
     const [geocodex, setGeocodex] = useState()
@@ -12,6 +15,9 @@ export const Admin = () => {
     const [userId, setUserId] = useState()
     const [petId, setPetId] = useState()
     const [shelterId, setShelterId] = useState()
+    const [petsArray, setPetsArray] = useState();
+    const [show, setShow] = useState(false);
+    const [role, setRole] = useState();
     const handleGeocodex = (e) => {
         setGeocodex(e.target.value);
     }
@@ -34,8 +40,8 @@ export const Admin = () => {
         setShelterId(e.target.value);
     }
 
-    const handleFormSubmit = async(e) => {
-        e.preventDefault();
+    const handleFormSubmit = async() => {
+
 
         _post("http://localhost:3001/shelters", {
             geocodex: geocodex,
@@ -53,31 +59,71 @@ export const Admin = () => {
         })
     }
 
-    const handleDeleteUser = () => {
-        _delete(`http://localhost:3001/users/${userId}`)
-
+    const handleDeleteUser = async (event) => {
+        event.preventDefault();
+        const pets = await _get(`http://localhost:3001/pets/findAllForUserId/${userId}`);
+        if (pets.data.length === 0) {
+          _delete(`http://localhost:3001/users/${userId}`);
+          window.location.reload()
+        } else {
+          const petIds = pets.data.map((pet) => pet.id);
+          console.log(petIds);
+          setPetsArray(petIds);
+          setShow(true);
+        }
+      };
+      
+      
+      const handleDeleteShelter = (event) => {
+        event.preventDefault();
+        _delete(`http://localhost:3001/shelters/${shelterId}`);
+      };
+      
+      const handleDeletePet = (event) => {
+        event.preventDefault();
+        _delete(`http://localhost:3001/pets/${petId}`);
+      };
+    const history = useNavigate();
+    const getRole = async (id) => {
+    try {
+      const response = await _get(`http://localhost:3001/users/user-role/${id}`);
+      if (response.data) {
+        setRole(response.data);
+      } else {
+        console.log("No response");
+      }
+    } catch (error) {
+      console.log(error);
     }
+  };
 
-    const handleDeleteShelter = () => {
-        _delete(`http://localhost:3001/shelters/${shelterId}`)
-
+  useEffect(() => {
+    const token = getToken("token");
+    if (getToken("token")) {
+      const decodedToken = jwt(token);
+      if (decodedToken) {
+        getRole(decodedToken.id);
+        console.log(String(role))
+      } else {
+        history('/accessdenied/accessdenied');
+      }
+    } else {
+      history('/accessdenied/accessdenied');
     }
-    const handleDeletePet = () => {
-        _delete(`http://localhost:3001/pets/${petId}`)
-    }
-    useEffect(() => {
-        getShelters();
-        console.log("workeed")
-    }, []);
+  }, []);
+   useEffect(() => {
+    if (role == 'regular') history('/accessdenied/accessdenied');
+  }, [role]);
     return(
     <div style={{backgroundColor:"#d8d5c4"}}>
     <Navbar/>
     
     <h1 style={{backgroundColor:"#d8d5c4"}}>Admin page</h1>
-    <h2 style={{marginLeft:"580px", backgroundColor:"#d8d5c4"}}>Add a new shelter below</h2>
     <div className={styles.all}>
     <div className={styles.three}>
     <form className={styles.form} onSubmit={handleFormSubmit}>
+    <h2 >Add a new shelter below</h2>
+        
         <label>Geocode value x</label>
         <input onChange={handleGeocodex} value={geocodex}/>
         <label>Geocode value y</label>
@@ -94,6 +140,7 @@ export const Admin = () => {
     <form className={styles.form} onSubmit={handleDeleteUser}>
         <label>Delete user by id</label>
         <input type="number" onChange={handleUser} value={userId}/>
+        {show ? <div style={{maxWidth: "290px"}}>You need to first delete pets: {petsArray && petsArray.join(", ")}</div>: null}
         <button type="submit">Delete</button>
     </form>
 

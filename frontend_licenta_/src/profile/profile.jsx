@@ -134,7 +134,7 @@ const handleLogOut = () => {
             ) : null}
             {
               pets.length == 1 ? (
-                <div style={{marginRight:"20px"}}>
+                <div style={{marginRight:"20px", width: "150vh"}}>
                 <PetCard  pet={pets[0]} />
                 </div>
               ) : null

@@ -5,7 +5,7 @@ import Navbar from '../navbar/navbar.js'
 import { useState } from 'react'
 import CloseButton from 'react-bootstrap/CloseButton';
 import styles from './findapet.module.css'
-import Modal from "../ModalLogin/Modal";
+import Modal from "../ModalLoginAdopt/ModalLoginAdopt";
 import { _get, _put } from '../utils/api.js'
 import { useEffect } from 'react'
 import petImage from '../images/peticon.jpg'
